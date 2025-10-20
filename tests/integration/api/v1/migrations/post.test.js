@@ -1,6 +1,10 @@
 import database from "infra/database";
+import orchestrator from "tests/orchestrator";
 
-beforeAll(cleanDatabase);
+beforeAll(async () => {
+  await orchestrator.waitForAllServices();
+  await database.query("DROP SCHEMA public CASCADE; CREATE SCHEMA public;");
+});
 
 async function cleanDatabase() {
   await database.query("DROP SCHEMA public CASCADE; CREATE SCHEMA public;");
