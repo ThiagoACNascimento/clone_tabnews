@@ -6,6 +6,7 @@ beforeAll(async () => {
   await database.query("DROP SCHEMA public CASCADE; CREATE SCHEMA public;");
 });
 
+// eslint-disable-next-line no-unused-vars
 async function cleanDatabase() {
   await database.query("DROP SCHEMA public CASCADE; CREATE SCHEMA public;");
 }
