@@ -5,6 +5,10 @@ async function status(request, response) {
 
   const databaseVersionResult = await database.query("SHOW server_version;");
   const databaseVersionVelue = databaseVersionResult.rows[0].server_version;
+  const databaseVersionVelueOnly = databaseVersionVelue
+    .split(" ")[0]
+    .split("(")[0]
+    .trim();
 
   const databaseMaxConnectionsResult = await database.query(
     "SHOW max_connections;",
@@ -25,7 +29,7 @@ async function status(request, response) {
     updated_at: updatedAt,
     dependencies: {
       database: {
-        version: databaseVersionVelue,
+        version: databaseVersionVelueOnly,
         max_connections: parseInt(databaseMaxConnectionsValue),
         opened_connections: databaseOpenedConnectedValue,
       },
