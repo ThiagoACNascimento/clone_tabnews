@@ -42,7 +42,7 @@ export class ServiceError extends Error {
     super(message || "Servico indisponivel no momento.", {
       cause,
     });
-    this.name = "InternalServerError";
+    this.name = "ServiceError";
     this.action = "Verifique se o servico esta disponivel";
     this.status_code = 503;
   }
