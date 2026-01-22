@@ -97,3 +97,29 @@ export class NotFoundError extends Error {
     };
   }
 }
+
+export class EnvironmentError extends Error {
+  constructor({ cause, message, action }) {
+    super(
+      message ||
+        "Nao foi possivel encontrar uma variavel de ambiente no sistema.",
+      {
+        cause,
+      },
+    );
+    this.name = "EnvironmentError";
+    this.action =
+      action ||
+      "Verifique se as variaveis de ambiente estao estabelecidas de forma correta.";
+    this.status_code = 400;
+  }
+
+  toJSON() {
+    return {
+      name: this.name,
+      message: this.message,
+      action: this.action,
+      status_code: this.status_code,
+    };
+  }
+}
