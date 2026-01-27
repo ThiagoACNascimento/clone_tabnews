@@ -176,6 +176,30 @@ async function update(username, userInputValues) {
   }
 }
 
+async function setFeatures(userId, features) {
+  const updatedUserFeatures = await runUpdateQuery(userId, features);
+  return updatedUserFeatures;
+
+  async function runUpdateQuery(userId, features) {
+    const results = await database.query({
+      text: `
+        UPDATE
+          users
+        SET
+          features = $2,
+          updated_at = timezone('utc', now())
+        WHERE
+          id = $1
+        RETURNING
+          *
+      ;`,
+      values: [userId, features],
+    });
+
+    return results.rows[0];
+  }
+}
+
 async function validateUniqueEmail(email) {
   const result = await database.query({
     text: `
@@ -228,6 +252,7 @@ const user = {
   findOneById,
   findOneByUsername,
   update,
+  setFeatures,
   findOneByEmail,
 };
 

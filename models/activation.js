@@ -1,6 +1,7 @@
 import email from "infra/email";
 import database from "infra/database";
 import webserver from "infra/webserver";
+import user from "models/users";
 import { NotFoundError } from "infra/errors";
 
 const EXPIRATION_IN_MILLISECONDS = 60 * 15 * 1000; // 15 minutes
@@ -61,6 +62,35 @@ async function findOneValidById(tokenId) {
   }
 }
 
+async function markTokenAsUsed(activationTokenId) {
+  const usedTokenId = await runUpdateQuery(activationTokenId);
+  return usedTokenId;
+
+  async function runUpdateQuery(activationTokenId) {
+    const results = await database.query({
+      text: `
+        UPDATE
+          user_activation_tokens
+        SET
+          used_at = timezone('utc', now()),
+          updated_at = timezone('utc', now())
+        WHERE
+          id = $1
+        RETURNING
+          *
+      ;`,
+      values: [activationTokenId],
+    });
+
+    return results.rows[0];
+  }
+}
+
+async function activateUserByUserId(userId) {
+  const activatedUser = await user.setFeatures(userId, ["create:session"]);
+  return activatedUser;
+}
+
 async function sendEmailToUser(user, activationToken) {
   await email.send({
     from: "TrizCrocheting <contato@trizcrocheting.com.br>",
@@ -79,6 +109,8 @@ const activation = {
   create,
   findOneValidById,
   sendEmailToUser,
+  markTokenAsUsed,
+  activateUserByUserId,
 };
 
 export default activation;
