@@ -1,5 +1,6 @@
 import * as cookie from "cookie";
 import session from "models/session";
+import authorization from "models/authorization";
 import {
   MethodNotAllowedError,
   InternalServerError,
@@ -95,12 +96,12 @@ function injectAnonymousUser(request) {
 function canRequest(feature) {
   return function canRequestMiddleware(request, response, next) {
     const userTryingToRequest = request.context.user;
-    if (userTryingToRequest.features.includes(feature)) {
+    if (authorization.can(userTryingToRequest, feature)) {
       return next();
     }
 
     throw new ForbiddenError({
-      messsage: "Voce nao possui permissao para execultar esta acao.",
+      message: "Voce nao possui permissao para execultar esta acao.",
       action: `Verifique se o seu usuario possui a feature "${feature}"`,
     });
   };
