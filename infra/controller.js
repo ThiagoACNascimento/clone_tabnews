@@ -101,7 +101,7 @@ function canRequest(feature) {
     }
 
     throw new ForbiddenError({
-      message: "Voce nao possui permissao para execultar esta acao.",
+      message: "Voce nao possui permissao para executar esta acao.",
       action: `Verifique se o seu usuario possui a feature "${feature}"`,
     });
   };
