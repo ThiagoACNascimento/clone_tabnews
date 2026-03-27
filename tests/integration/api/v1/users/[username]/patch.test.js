@@ -11,7 +11,7 @@ beforeAll(async () => {
 
 describe("PATCH /api/v1/users/[username]", () => {
   describe("Anonymous user", () => {
-    test("With unique 'username'", async () => {
+    test("With unique `username`", async () => {
       const createdUser1 = await orchestrator.createUser();
 
       const userUpdateResponse = await fetch(
@@ -41,7 +41,7 @@ describe("PATCH /api/v1/users/[username]", () => {
   });
 
   describe("Default user", () => {
-    test("With noneexistent 'username'", async () => {
+    test("With noneexistent `username`", async () => {
       const createdUser = await orchestrator.createUser();
       await orchestrator.activateUser(createdUser.id);
       const sessionObject = await orchestrator.createSession(createdUser.id);
@@ -68,7 +68,7 @@ describe("PATCH /api/v1/users/[username]", () => {
       });
     });
 
-    test("With duplicated 'username'", async () => {
+    test("With duplicated `username`", async () => {
       await orchestrator.createUser({
         username: "user1",
       });
@@ -102,7 +102,7 @@ describe("PATCH /api/v1/users/[username]", () => {
       });
     });
 
-    test("With `userB` target 'userA'", async () => {
+    test("With `userB` target `userA`", async () => {
       await orchestrator.createUser({
         username: "userA",
       });
@@ -137,7 +137,7 @@ describe("PATCH /api/v1/users/[username]", () => {
       });
     });
 
-    test("With duplicated 'email'", async () => {
+    test("With duplicated `email`", async () => {
       await orchestrator.createUser({ email: "email1@gmail.com" });
 
       const createdUser2 = await orchestrator.createUser({
@@ -173,7 +173,7 @@ describe("PATCH /api/v1/users/[username]", () => {
       });
     });
 
-    test("With unique 'username'", async () => {
+    test("With unique `username`", async () => {
       const createdUser1 = await orchestrator.createUser();
       await orchestrator.activateUser(createdUser1.id);
       const sessionObject1 = await orchestrator.createSession(createdUser1.id);
@@ -210,7 +210,7 @@ describe("PATCH /api/v1/users/[username]", () => {
       expect(responseBody.updated_at > responseBody.created_at).toBe(true);
     });
 
-    test("With unique 'email'", async () => {
+    test("With unique `email`", async () => {
       const createdUser1 = await orchestrator.createUser();
       await orchestrator.activateUser(createdUser1.id);
       const sessionObject1 = await orchestrator.createSession(createdUser1.id);
@@ -247,7 +247,7 @@ describe("PATCH /api/v1/users/[username]", () => {
       expect(responseBody.updated_at > responseBody.created_at).toBe(true);
     });
 
-    test("With new 'password'", async () => {
+    test("With new `password`", async () => {
       const createUser1 = await orchestrator.createUser();
       await orchestrator.activateUser(createUser1.id);
       const sessionObject = await orchestrator.createSession(createUser1.id);
