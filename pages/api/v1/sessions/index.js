@@ -5,14 +5,11 @@ import authorization from "models/authorization";
 import session from "models/session";
 import { ForbiddenError } from "infra/errors";
 
-const router = createRouter();
-
-router.use(controller.injectAnonymousOrUser);
-router
+export default createRouter()
+  .use(controller.injectAnonymousOrUser)
   .post(controller.canRequest("create:session"), postHandler)
-  .delete(deleteHandler);
-
-export default router.handler(controller.errorHandlers);
+  .delete(deleteHandler)
+  .handler(controller.errorHandlers);
 
 async function postHandler(request, response) {
   const userInputValues = request.body;
