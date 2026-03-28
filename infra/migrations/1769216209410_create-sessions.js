@@ -1,4 +1,4 @@
-exports.up = (pgm) => {
+export async function up(pgm) {
   pgm.createTable("sessions", {
     id: {
       type: "uuid",
@@ -35,6 +35,6 @@ exports.up = (pgm) => {
       notNull: true,
     },
   });
-};
+}
 
-exports.down = false;
+export const down = false;
