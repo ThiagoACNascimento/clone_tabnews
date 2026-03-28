@@ -1,4 +1,4 @@
-exports.up = (pgm) => {
+export async function up(pgm) {
   pgm.addColumn("users", {
     features: {
       type: "varchar[]",
@@ -6,6 +6,6 @@ exports.up = (pgm) => {
       default: "{}",
     },
   });
-};
+}
 
-exports.down = false;
+export const down = false;

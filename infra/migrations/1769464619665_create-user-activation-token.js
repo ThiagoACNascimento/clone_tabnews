@@ -1,4 +1,4 @@
-exports.up = (pgm) => {
+export async function up(pgm) {
   pgm.createTable("user_activation_tokens", {
     id: {
       type: "uuid",
@@ -33,6 +33,6 @@ exports.up = (pgm) => {
       default: pgm.func("timezone('utc', now())"),
     },
   });
-};
+}
 
-exports.down = false;
+export const down = false;
