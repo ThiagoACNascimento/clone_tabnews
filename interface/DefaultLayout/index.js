@@ -1,9 +1,28 @@
-import { PageLayout } from "@primer/react"
+import { PageLayout, Header, Text } from "@primer/react";
 
-export default function DefaultLayout({children}) {
-  return <PageLayout>
-    <PageLayout.Header>Cabeçalho</PageLayout.Header>
-    <PageLayout.Content>{children}</PageLayout.Content>
-    <PageLayout.Footer>Rodapé</PageLayout.Footer>
-  </PageLayout> 
-  } 
+export default function DefaultLayout({ children }) {
+  return (
+    <>
+      <Header>
+        <Header.Item full>
+          <Header.Link href="/">TrizCrocheting</Header.Link>
+        </Header.Item>
+
+        <Header.Item>
+          <Header.Link href="/login">Login</Header.Link>
+        </Header.Item>
+
+        <Header.Item>
+          <Header.Link href="/cadastro">Cadastrar</Header.Link>
+        </Header.Item>
+      </Header>
+
+      <PageLayout>
+        <PageLayout.Content>{children}</PageLayout.Content>
+        <PageLayout.Footer divider={"line"}>
+          <Text size="small"> © {new Date().getFullYear()} TrizCrocheting</Text>
+        </PageLayout.Footer>
+      </PageLayout>
+    </>
+  );
+}
