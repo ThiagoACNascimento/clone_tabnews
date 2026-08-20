@@ -1,7 +1,15 @@
+import DefaultLayout from "interface/DefaultLayout";
+
 function Home() {
   return (
     <>
-      <h1>Construindo um site para postar os croches da minha namorada.</h1>
+      <DefaultLayout
+        metadata={{
+          description: "Fabrica de memórias",
+        }}
+      >
+        <h1>Fabrica de memórias</h1>
+      </DefaultLayout>
     </>
   );
 }
