@@ -1,4 +1,5 @@
 import { useState } from "react";
+import DefaultLayout from "interface/DefaultLayout";
 
 export default function RegisterPage() {
   console.log("Render register page");
@@ -25,7 +26,12 @@ export default function RegisterPage() {
   }
 
   return (
-    <>
+    <DefaultLayout
+      metadata={{
+        title: "Cadastro",
+        description: "Crie sua conta de forma gratuita. ",
+      }}
+    >
       <h1>Cadastro</h1>
 
       <form onSubmit={handleSubmit}>
@@ -66,6 +72,6 @@ export default function RegisterPage() {
 
         <button type="submit">Cadastrar</button>
       </form>
-    </>
+    </DefaultLayout>
   );
 }
