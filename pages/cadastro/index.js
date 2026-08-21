@@ -1,9 +1,23 @@
 import { useState } from "react";
+import { Button, FormControl, TextInput, Stack } from "@primer/react";
 import DefaultLayout from "interface/DefaultLayout";
 
 export default function RegisterPage() {
-  console.log("Render register page");
+  return (
+    <DefaultLayout
+      metadata={{
+        title: "Cadastro",
+        description: "Crie sua conta de forma gratuita. ",
+      }}
+    >
+      <h1>Cadastro</h1>
 
+      <RegisterForm />
+    </DefaultLayout>
+  );
+}
+
+function RegisterForm() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -26,52 +40,51 @@ export default function RegisterPage() {
   }
 
   return (
-    <DefaultLayout
-      metadata={{
-        title: "Cadastro",
-        description: "Crie sua conta de forma gratuita. ",
-      }}
-    >
-      <h1>Cadastro</h1>
-
-      <form onSubmit={handleSubmit}>
-        <div>
-          Nome do usuario:
-          <input
+    <form onSubmit={handleSubmit}>
+      <Stack gap={"normal"}>
+        <FormControl>
+          <FormControl.Label>Nome do usuario</FormControl.Label>
+          <TextInput
             type="text"
             value={username}
             placeholder="UserName"
             onChange={(event) => {
               setUsername(event.target.value);
             }}
+            block
           />
-        </div>
+        </FormControl>
 
-        <div>
-          Email:
-          <input
+        <FormControl>
+          <FormControl.Label>Email</FormControl.Label>
+          <TextInput
             type="email"
             value={email}
             placeholder="user@gmail.com"
             onChange={(event) => {
               setEmail(event.target.value);
             }}
+            block
           />
-        </div>
+        </FormControl>
 
-        <div>
-          Senha:
-          <input
+        <FormControl>
+          <FormControl.Label>Senha</FormControl.Label>
+          <TextInput
             type="password"
             value={password}
             onChange={(event) => {
               setPassword(event.target.value);
             }}
+            block
           />
-        </div>
-
-        <button type="submit">Cadastrar</button>
-      </form>
-    </DefaultLayout>
+        </FormControl>
+        <Stack.Item>
+          <Button type="submit" variant="primary">
+            Cadastrar
+          </Button>
+        </Stack.Item>
+      </Stack>
+    </form>
   );
 }
