@@ -12,7 +12,7 @@ export default function DefaultLayout({ children, metadata = {} }) {
         </title>
 
         {metadata.description && (
-          <meta name="description" value={metadata.description} />
+          <meta name="description" content={metadata.description} />
         )}
       </Head>
 
