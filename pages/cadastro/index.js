@@ -1,18 +1,20 @@
 import { useState } from "react";
-import { Button, FormControl, TextInput, Stack } from "@primer/react";
+import { Button, FormControl, TextInput, Stack, Heading } from "@primer/react";
 import DefaultLayout from "interface/DefaultLayout";
 
 export default function RegisterPage() {
   return (
     <DefaultLayout
+      contentWidth="small"
       metadata={{
         title: "Cadastro",
         description: "Crie sua conta de forma gratuita. ",
       }}
     >
-      <h1>Cadastro</h1>
-
-      <RegisterForm />
+      <Stack gap={"spacious"}>
+        <Heading as="h1">Cadastro</Heading>
+        <RegisterForm />
+      </Stack>
     </DefaultLayout>
   );
 }
