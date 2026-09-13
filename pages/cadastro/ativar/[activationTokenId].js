@@ -1,11 +1,13 @@
 import DefaultLayout from "interface/DefaultLayout";
 import { Banner } from "@primer/react";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function ActivateUserPage() {
   const router = useRouter();
   const activationTokenId = router.query.activationTokenId;
+  const [activationStatus, setActivationStatus] = useState("loading");
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     if (!activationTokenId) {
@@ -26,13 +28,18 @@ export default function ActivateUserPage() {
         const activationResponseBody = await response.json();
 
         if (response.status === 200) {
-          console.log("Sucesso: ", activationResponseBody);
+          setActivationStatus("success");
           return;
         }
-
-        // sinal de fracasso
+        setErrorMessage(
+          `${activationResponseBody.message} ${activationResponseBody.action}`,
+        );
+        setActivationStatus("failure");
       } catch {
-        // sinal de fracasso
+        setErrorMessage(
+          "Houve uma falha de conexão como o servidor. Tenter novamente mais tarde.",
+        );
+        setActivationStatus("failure");
       }
     }
   }, [activationTokenId]);
@@ -45,11 +52,30 @@ export default function ActivateUserPage() {
           title: "Ativar cadastro",
         }}
       >
-        <Banner
-          variant="warning"
-          title="Quase lá!"
-          description="Abra o email enviado pelo TrizCrocheting e click no link de confirmação!"
-        />
+        {activationStatus === "loading" && (
+          <Banner variant="info">
+            <Banner.Title>Verificando token...</Banner.Title>
+          </Banner>
+        )}
+
+        {activationStatus === "success" && (
+          <Banner variant="success">
+            <Banner.Title>Cadastro ativado com sucesso!</Banner.Title>
+            <Banner.Description>
+              Sua conta já está ativa!<a href="/login">Faça o login</a>{" "}
+              novamente para acessa-lá.
+            </Banner.Description>
+          </Banner>
+        )}
+
+        {activationStatus === "failure" && (
+          <Banner variant="critical">
+            <Banner.Title>
+              Não foi possível ativar o seu cadastro...
+            </Banner.Title>
+            <Banner.Description>{errorMessage}</Banner.Description>
+          </Banner>
+        )}
       </DefaultLayout>
     </>
   );
