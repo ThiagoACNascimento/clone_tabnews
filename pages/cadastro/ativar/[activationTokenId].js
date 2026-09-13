@@ -23,10 +23,10 @@ export default function ActivateUserPage() {
           },
         );
 
-        // const activationResponseBody = await response.json();
+        const activationResponseBody = await response.json();
 
         if (response.status === 200) {
-          // retorna um sucesso
+          console.log("Sucesso: ", activationResponseBody);
           return;
         }
 
